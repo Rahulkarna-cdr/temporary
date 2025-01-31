@@ -1,15 +1,14 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', Arial, sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
 header {
-    background-color: #fff; /* White */
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: #F4FFC3; 
     font-size: 20px;
-    padding: 7px 20px;
+    padding: 25px 20px;
     text-align: center;
 }
 
@@ -19,11 +18,33 @@ header {
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
+    position: relative;
+}
+
+.header-content h1 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
 }
 
 .phone-number {
     font-size: 1em;
     color: #333;
+    display: flex;
+    align-items: center;
+}
+
+.phone-number i {
+    margin-right: 10px;
+    color: #5D8736;
+}
+
+h1 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    color: #5D8736;
+    font-size: 2.5em;
 }
 
 .social-icons {
@@ -35,17 +56,17 @@ header {
     color: #333;
     font-size: 1.2em;
     text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 .social-icons a:hover {
-    color: #4caf50; /* Leaf Green */
+    color: #4caf50;
 }
 
 nav {
     display: flex;
     justify-content: center;
-    background-color: #8b5e3c; /* Earthy Brown */
-    padding: 15px 0;
+    background-color: #5D8736; 
 }
 
 nav a {
@@ -54,14 +75,18 @@ nav a {
     text-decoration: none;
     text-align: center;
     font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    transition: background-color 0.3s ease;
 }
 
 nav a:hover {
-    background-color: #4caf50; /* Leaf Green */
+    background-color: #FF9D23;
 }
 
 .hero {
-    background-image: url('path-to-your-image.jpg');
+    background-image: url('background_image_Wheat.jpg');
     background-size: cover;
     background-position: center;
     height: 500px;
@@ -75,6 +100,7 @@ nav a:hover {
 
 .hero h1 {
     font-size: 3.5em;
+    color: white;
     margin: 0;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
@@ -85,21 +111,68 @@ nav a:hover {
 }
 
 .hero button {
-    background-color: #fcbf49; /* Golden Yellow */
+    background-color: #FFA500;
     color: #333;
-    padding: 15px 30px;
+    padding: 15px 35px;
     border: none;
+    border-radius: 15px;
     cursor: pointer;
     font-size: 1.2em;
     margin-top: 20px;
+    transition: background-color 0.3s ease;
 }
 
 .hero button:hover {
-    background-color: #f0a500; /* Darker Golden Yellow */
+    background-color: #FFD166;
+}
+
+#service {
+    padding: 50px 20px;
+    text-align: center;
+    background-color: #f9f9f9;
+}
+
+#service h2 {
+    font-size: 2.5em;
+    color: #5D8736;
+    margin-bottom: 40px;
+}
+
+.service-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.service-item {
+    text-decoration: none;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.service-item:hover {
+    transform: translateY(-10px);
+}
+
+.service-item h3 {
+    font-size: 1.5em;
+    color: #5D8736;
+    margin-bottom: 10px;
+}
+
+.service-item p {
+    font-size: 1em;
+    color: #333;
 }
 
 footer {
-    background-color: #4caf50; /* Leaf Green */
+    background-color: #809D3C;
     color: white;
     text-align: center;
     padding: 20px;
