@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crop Recommendation System</title>
+    <style>
+        <style>
+            /* Add Google Fonts link in head */
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+        
+            body {
+                font-family: 'Poppins', Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f9f9f9;
+                min-height: 100vh;
+                position: relative;
+                padding-bottom: 60px; /* For footer space */
+            }
+        
+            .container {
+                background-color: white;
+                padding: 30px;
+                border-radius: 15px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                max-width: 800px;
+                margin: 40px auto;
+                border: 1px solid #ddd;
+            }
+        
+            h1 {
+                color: #5D8736;
+                text-align: center;
+                margin-bottom: 30px;
+                font-size: 2.5em;
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            }
+        
+            .form-group {
+                margin-bottom: 20px;
+            }
+        
+            label {
+                display: block;
+                margin-bottom: 8px;
+                color: #5D8736;
+                font-weight: 500;
+            }
+        
+            input {
+                width: 100%;
+                padding: 12px;
+                border: 2px solid #5D8736;
+                border-radius: 8px;
+                font-size: 1em;
+                transition: border-color 0.3s ease;
+            }
+        
+            input:focus {
+                outline: none;
+                border-color: #FF9D23;
+                box-shadow: 0 0 5px rgba(255, 157, 35, 0.3);
+            }
+        
+            button {
+                background-color: #5D8736;
+                color: white;
+                padding: 15px 30px;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                font-size: 1.1em;
+                width: 100%;
+                transition: all 0.3s ease;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+        
+            button:hover {
+                background-color: #FF9D23;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            }
+        
+            #result {
+                margin-top: 25px;
+                padding: 20px;
+                border-radius: 8px;
+                background-color: #F4FFC3;
+                text-align: center;
+                border: 2px solid #5D8736;
+            }
+        
+            #result h3 {
+                color: #5D8736;
+                margin: 0;
+                font-size: 1.4em;
+            }
+        
+            /* Add your existing footer styles */
+            footer {
+                background-color: #809D3C;
+                color: white;
+                text-align: center;
+                padding: 15px;
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+            }
+        </style>
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Crop Recommendation System</h1>
+        <div class="form-group">
+            <label for="n">Nitrogen (N) content:</label>
+            <input type="number" step="0.1" id="n" required>
+        </div>
+        <div class="form-group">
+            <label for="p">Phosphorus (P) content:</label>
+            <input type="number" step="0.1" id="p" required>
+        </div>
+        <div class="form-group">
+            <label for="k">Potassium (K) content:</label>
+            <input type="number" step="0.1" id="k" required>
+        </div>
+        <div class="form-group">
+            <label for="temperature">Temperature (°C):</label>
+            <input type="number" step="0.1" id="temperature" required>
+        </div>
+        <div class="form-group">
+            <label for="humidity">Humidity (%):</label>
+            <input type="number" step="0.1" id="humidity" required>
+        </div>
+        <div class="form-group">
+            <label for="ph">pH:</label>
+            <input type="number" step="0.1" id="ph" required>
+        </div>
+        <div class="form-group">
+            <label for="rainfall">Rainfall (mm):</label>
+            <input type="number" step="0.1" id="rainfall" required>
+        </div>
+        <button onclick="predictCrop()">Recommend Crop</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function predictCrop() {
+            const inputs = {
+                n: parseFloat(document.getElementById('n').value),
+                p: parseFloat(document.getElementById('p').value),
+                k: parseFloat(document.getElementById('k').value),
+                temperature: parseFloat(document.getElementById('temperature').value),
+                humidity: parseFloat(document.getElementById('humidity').value),
+                ph: parseFloat(document.getElementById('ph').value),
+                rainfall: parseFloat(document.getElementById('rainfall').value)
+            };
+
+            fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(inputs)
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerHTML = `
+                    <h3>Recommended Crop: ${data.crop}</h3>
+                `;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('result').innerHTML = `
+                    <h3 style="color: red;">Error getting recommendation</h3>
+                `;
+            });
+        }
+    </script>
+</body>
+</html>

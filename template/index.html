@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Yield Prediction</title>
+</head>
+<body>
+    <h1>Crop Yield Prediction</h1>
+    <form method="POST" action="/predict">
+        <label for="temperature">Temperature (°C):</label><br>
+        <input type="text" id="temperature" name="temperature" required><br><br>
+        
+        <label for="rainfall">Rainfall (mm):</label><br>
+        <input type="text" id="rainfall" name="rainfall" required><br><br>
+        
+        <label for="humidity">Humidity (%):</label><br>
+        <input type="text" id="humidity" name="humidity" required><br><br>
+        
+        <label for="wind_speed">Wind Speed (km/h):</label><br>
+        <input type="text" id="wind_speed" name="wind_speed" required><br><br>
+        
+        <input type="submit" value="Predict">
+    </form>
+
+    {% if prediction %}
+        <h2>Predicted Crop Yield: {{ prediction }} tons/ha</h2>
+    {% endif %}
+</body>
+</html>
