@@ -110,6 +110,23 @@ nav a:hover {
     color: #FFE4B5;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
+.hero-button {
+    background-color: #FFA500;
+    color: #333;
+    padding: 15px 35px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 1.2em;
+    margin-top: 20px;
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Make it behave like a button */
+    transition: background-color 0.3s ease;
+}
+
+.hero-button:hover {
+    background-color: #FFD166;
+}
 
 .hero button {
     background-color: #FFA500;
