@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Yield Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #34495e;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #27ae60;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #219a52;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Crop Yield Prediction</h1>
+        <form id="predictionForm">
+            <div class="form-group">
+                <label for="precipitation">Precipitation (mm):</label>
+                <input type="number" step="0.01" id="precipitation" required>
+            </div>
+
+            <div class="form-group">
+                <label for="humidity">Humidity (%):</label>
+                <input type="number" step="0.01" id="humidity" required>
+            </div>
+
+            <div class="form-group">
+                <label for="relative_humidity">Relative Humidity (%):</label>
+                <input type="number" step="0.01" id="relative_humidity" required>
+            </div>
+
+            <div class="form-group">
+                <label for="temperature">Temperature (°C):</label>
+                <input type="number" step="0.01" id="temperature" required>
+            </div>
+
+            <div class="form-group">
+                <label for="crop">Crop Type:</label>
+                <select id="crop" required>
+                    <option value="">Select Crop</option>
+                    <option value="Cocoa">Cocoa Beans</option>
+                    <option value="OilPalm">Oil Palm Fruit</option>
+                    <option value="Rice">Rice Paddy</option>
+                    <option value="Rubber">Rubber Natural</option>
+                </select>
+            </div>
+
+            <button type="submit">Predict Yield</button>
+        </form>
+
+        <div id="result" class="success"></div>
+    </div>
+
+    <script>
+        document.getElementById('predictionForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Get user inputs
+            const inputs = {
+                precipitation: parseFloat(document.getElementById('precipitation').value),
+                humidity: parseFloat(document.getElementById('humidity').value),
+                relative_humidity: parseFloat(document.getElementById('relative_humidity').value),
+                temperature: parseFloat(document.getElementById('temperature').value),
+                crop: document.getElementById('crop').value
+            };
+
+            // Encode crop type to one-hot encoding
+            const cropEncoding = {
+                'Cocoa': [1, 0, 0, 0],
+                'OilPalm': [0, 1, 0, 0],
+                'Rice': [0, 0, 1, 0],
+                'Rubber': [0, 0, 0, 1]
+            };
+
+            const encodedCrop = cropEncoding[inputs.crop] || [0, 0, 0, 0];
+            
+            // Prepare data for prediction in the correct order
+            const predictionData = [
+                inputs.precipitation,
+                inputs.humidity,
+                inputs.relative_humidity,
+                inputs.temperature,
+                ...encodedCrop
+            ];
+
+            // Here you would typically send the data to your backend API
+            // For demonstration, we'll use a mock prediction
+            const mockPrediction = await predictYield(predictionData);
+            
+            // Show result
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = `Predicted Yield: ${mockPrediction.toFixed(2)} tons/hectare`;
+
+        });
+
+        // Mock prediction function - replace with actual API call
+        async function predictYield(data) {
+            // In a real scenario, you would make a POST request to your backend
+            // Example:
+            // const response = await fetch('/api/predict', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify({ data: data }),
+            // });
+            // const result = await response.json();
+            // return result.prediction;
+
+            // Mock response
+            return Math.random() * 10 + 20; // Replace with actual prediction
+        }
+    </script>
+</body>
+</html>
